@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+# ----------------------------------------------------------------------------
+# defaultcss - Package up the default.css into a wrapper JS for parsing
+# ----------------------------------------------------------------------------
+
+# work out the correct directory
+abspath=`dirname $(cd "${0%/*}" 2>/dev/null; echo "$PWD"/"${0##*/}")`
+srcdir=$abspath/../src
+defaultcssfile=$srcdir/defaultcss.js
+
+# create a default CSS string
+echo -n 'th.DEFAULT_CSS = "' > $defaultcssfile
+
+# loop through print out without the newlines
+cat $srcdir/css/default.css | while read LINE
+do
+echo -n "$LINE" >> $defaultcssfile
+done
+
+# end up
+echo '";' >> $defaultcssfile

@@ -1,0 +1,75 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>FocusManager Test Page</title>
+    <link type="text/css" rel="thstylesheet" href="visual.css"/>
+    <script type="text/javascript" src="../../src/jstraits.js"></script>
+    <script type="text/javascript" src="../../src/util.js"></script>
+    <script type="text/javascript" src="../../src/traits.js"></script>
+    <script type="text/javascript" src="../../src/css.js"></script>
+    <script type="text/javascript" src="../../src/th.js"></script>
+    <script type="text/javascript" src="../../src/components.js"></script>
+    <script type="text/javascript" src="../../src/jshashtable.js"></script>
+    <script type="text/javascript" src="../../src/formlayout/formLayout.js"></script>
+    <script type="text/javascript">
+        function buildScene() {
+            scene = new th.Scene(document.getElementById("scene"), "../../src/", true);
+            scene.focusManager.subscribe(['p1', 'p2', 'p3', 'p4'], scene);
+
+            list1 = scene.byId('p1');
+            list2 = scene.byId('p2');
+            list3 = scene.byId('p3');
+            list4 = scene.byId('p4');
+
+            list1.focusNext = list3;
+            list2.allowLoseFocus = function(e) {
+                if (e.newFocused === list1) {
+                    alert("Don't focus 'list #1' from 'list #2'!!!");
+                    return false;
+                }
+                return true;
+            }
+            scene.render();
+            
+            // secound scene
+            scene2 = new th.Scene(document.getElementById("scene_2"), "../../src/", true);
+            scene2.focusManager.subscribe(['p5', 'p6', 'p7', 'p8'], scene2);
+
+            list5 = scene2.byId('p5');
+            list6 = scene2.byId('p6');
+            list7 = scene2.byId('p7');
+            list8 = scene2.byId('p8');
+            
+            scene2.render();
+            
+            // fill the lists
+            th.forEach([list1, list2, list3, list4, list5, list6, list7, list8], function(e) { e.items = ['Item1', 'Item2', 'Item3', 'Item4']})
+        }
+    </script>
+</head>
+<body onload="buildScene()">
+    <p>This page demonstrates the th.FocusManager system.</p>
+    <p>Things to test:
+        <ol>
+            <li>Tab lets the focus travel</li>
+            <li>Focused component should have a black border; the unfocused components a gray border</li>
+            <li>List1 doesn't focus List2 via tabs</li>
+            <li>It isn't possible to focus List1, if List2 has the focus</li>
+            <li>Arrow keys allow you to move the selection within the list</li>
+            <li>Copy, Cut, Paste work within the list</li>    
+        </ol>
+    </p>
+    <canvas style="z-index: 100" id="scene" grid="f:100px:g(1.0), spacer(2.5em), f:100px:g(0.5); f:100px:g(1.0), spacer(5em), f:100px:g(1.0)" width="500" height="500">
+        <list id="p1" cell="1,1"></list>    <list id="p2" cell="3,1"></list>
+        
+        <list id="p3" cell="1,3"></list>     <list id="p4" cell="3,3"></list> 
+    </canvas><br>
+    
+    <canvas style="z-index: 100" id="scene_2" grid="f:100px:g(1.0), spacer(2.5em), f:100px:g(0.5); f:100px:g(1.0), spacer(5em), f:100px:g(1.0)" width="500" height="500">
+        <list id="p5" cell="1,1"></list>    <list id="p6" cell="3,1"></list>
+        
+        <list id="p7" cell="1,3"></list>     <list id="p8" cell="3,3"></list> 
+    </canvas>
+</body>
+</html>

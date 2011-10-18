@@ -1,0 +1,42 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>Util Unit Tests</title>
+    <script type="text/javascript" src="../../src/jstraits.js"></script>
+    <script type="text/javascript" src="../../src/util.js"></script>
+    <script type="text/javascript">
+        function runTests() {
+            // I haven't setup a test to confirm these, so just console'ing them for sanity check
+            console.log("DPI: " + th.convertAbsoluteUnitToPixels("1in"));
+
+            var borderThin = th.convertBorderLengthToPixels("thin");
+            var borderMedium = th.convertBorderLengthToPixels("medium");
+            var borderThick = th.convertBorderLengthToPixels("thick");
+
+            console.log("border length thin: " + borderThin);
+            console.log("border length medium: " + borderMedium);
+            console.log("border length thick: " + borderThick);
+
+            fireunit.ok(borderThin, "Border thin measurement");
+            fireunit.ok(borderMedium, "Border medium measurement");
+            fireunit.ok(borderThick, "Border thick measurement");
+
+            fireunit.ok(borderThin < borderMedium, "Thin thinner than medium");
+            fireunit.ok(borderThin < borderThick, "Thin thinner than thick");
+            fireunit.ok(borderMedium < borderThick, "Medium thinner than thick");
+
+            fireunit.compare(
+                    th.convertAbsoluteUnitToPixels("10in"),
+                    th.convertAbsoluteUnitToPixels("in", 10),
+                    "Both absolute unit convert syntaxes are supported"
+            );
+
+            fireunit.testDone();
+        }
+    </script>
+</head>
+<body onload="runTests()">
+
+</body>
+</html>

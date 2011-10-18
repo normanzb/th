@@ -1,0 +1,47 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>Visual Test of FormLayout</title>
+    <link type="text/css" rel="thstylesheet" href="visual.css"/>
+    <script type="text/javascript" src="../../src/jstraits.js"></script>
+    <script type="text/javascript" src="../../src/util.js"></script>
+    <script type="text/javascript" src="../../src/traits.js"></script>
+    <script type="text/javascript" src="../../src/css.js"></script>
+    <script type="text/javascript" src="../../src/th.js"></script>
+    <script type="text/javascript" src="../../src/components.js"></script>
+    <script type="text/javascript" src="../../src/jshashtable.js"></script>
+    <script type="text/javascript" src="../../src/formlayout/formLayout.js"></script>
+    <script type="text/javascript" src="../../src/editor.js"></script>
+    <script type="text/javascript">
+        var scene;
+        var model;
+        var editor;
+        function buildScene() {
+            scene = new th.Scene(document.getElementById("scene"), "../../src/");
+            var focusManager = new th.FocusManager(th.global_event_bus, th.byId('input_first'), th.byId('input_last'));
+            scene.focusManager = focusManager;
+            focusManager.relateTo(scene);
+            
+            var simpleeditor = scene.byId("t1");
+            focusManager.subscribe(simpleeditor);
+            focusManager.focus(simpleeditor);
+
+            model = scene.root.children[0].model;
+            editor = scene.root.children[0];
+            scene.root.children[0].model.insertDocument("Once upon a midnight dreary, while I pondered, weak and weary,\nOver many a quaint and curious volume of forgotten lore,\nWhile I nodded, nearly napping, suddenly there came a tapping,\nAs of some one gently rapping, rapping at my chamber door.\n\"\'Tis some visitor\", I muttered, \"tapping at my chamber door -\n            Only this, and nothing more.\"\n\nAh, distinctly I remember it was in the bleak December,\nAnd each separate dying ember wrought its ghost upon the floor.\nEagerly I wished the morrow; - vainly I had sought to borrow\nFrom my books surcease of sorrow - sorrow for the lost Lenore -\nFor the rare and radiant maiden whom the angels name Lenore -\n            Nameless here for evermore.\n\nAnd the silken sad uncertain rustling of each purple curtain\nThrilled me - filled me with fantastic terrors never felt before;\nSo that now, to still the beating of my heart, I stood repeating,\n\"\'Tis some visitor entreating entrance at my chamber door -\nSome late visitor entreating entrance at my chamber door; -\n            This it is, and nothing more.\"\n\nPresently my soul grew stronger; hesitating then no longer,\n\"Sir,\" said I, \"or Madam, truly your forgiveness I implore;\nBut the fact is I was napping, and so gently you came rapping,\nAnd so faintly you came tapping, tapping at my chamber door,\nThat I scarce was sure I heard you\" - here I opened wide the door; -\n            Darkness there, and nothing more.\n\nDeep into that darkness peering, long I stood there wondering, fearing,\nDoubting, dreaming dreams no mortal ever dared to dream before;\nBut the silence was unbroken, and the stillness gave no token,\nAnd the only word there spoken was the whispered word, \"Lenore?\"\nThis I whispered, and an echo murmured back the word, \"Lenore!\" -\n            Merely this, and nothing more.\n\nBack into the chamber turning, all my soul within me burning,\nSoon again I heard a tapping somewhat louder than before.\n\"Surely,\" said I, \"surely that is something at my window lattice:\nLet me see, then, what thereat is, and this mystery explore -\nLet my heart be still a moment and this mystery explore; -\n            \'Tis the wind and nothing more.\"\n\nOpen here I flung the shutter, when, with many a flirt and flutter,\nIn there stepped a stately raven of the saintly days of yore;\nNot the least obeisance made he; not a minute stopped or stayed he;\nBut, with mien of lord or lady, perched above my chamber door -\nPerched upon a bust of Pallas just above my chamber door -\n            Perched, and sat, and nothing more.\n\nThen this ebony bird beguiling my sad fancy into smiling,\nBy the grave and stern decorum of the countenance it wore.\n\"Though thy crest be shorn and shaven, thou,\" I said, \"art sure no craven,\nGhastly grim and ancient raven wandering from the Nightly shore -\nTell me what thy lordly name is on the Night\'s Plutonian shore!\"\n            Quoth the Raven, \"Nevermore.\"\n\nMuch I marveled this ungainly fowl to hear discourse so plainly,\nThough its answer little meaning - little relevancy bore;\nFor we cannot help agreeing that no living human being\nEver yet was blest with seeing bird above his chamber door -\nBird or beast upon the sculptured bust above his chamber door,\n            With such name as \"Nevermore.\"\n\nBut the raven, sitting lonely on the placid bust, spoke only\nThat one word, as if his soul in that one word he did outpour.\nNothing further then he uttered - not a feather then he fluttered -\nTill I scarcely more than muttered, \"other friends have flown before -\nOn the morrow he will leave me, as my hopes have flown before.\"\n            Then the bird said, \"Nevermore.\"\n\nStartled at the stillness broken by reply so aptly spoken,\n\"Doubtless,\" said I, \"what it utters is its only stock and store,\nCaught from some unhappy master whom unmerciful Disaster\nFollowed fast and followed faster till his songs one burden bore -\nTill the dirges of his Hope that melancholy burden bore\n            Of \'Never - nevermore\'.\"\n\nBut the Raven still beguiling all my sad soul into smiling,\nStraight I wheeled a cushioned seat in front of bird, and bust and door;\nThen upon the velvet sinking, I betook myself to linking\nFancy unto fancy, thinking what this ominous bird of yore -\nWhat this grim, ungainly, ghastly, gaunt and ominous bird of yore\n            Meant in croaking \"Nevermore.\"\n\nThis I sat engaged in guessing, but no syllable expressing\nTo the fowl whose fiery eyes now burned into my bosom\'s core;\nThis and more I sat divining, with my head at ease reclining\nOn the cushion\'s velvet lining that the lamplight gloated o\'er,\nBut whose velvet violet lining with the lamplight gloating o\'er,\n            She shall press, ah, nevermore!\n\nThen methought the air grew denser, perfumed from an unseen censer\nSwung by Seraphim whose footfalls tinkled on the tufted floor.\n\"Wretch,\" I cried, \"thy God hath lent thee - by these angels he hath sent thee\nRespite - respite and nepenthe, from thy memories of Lenore\nQuaff, oh quaff this kind nepenthe and forget this lost Lenore!\"\n            Quoth the Raven, \"Nevermore.\"\n\n\"Prophet!\" said I, \"thing of evil! - prophet still, if bird or devil! -\nWhether Tempter sent, or whether tempest tossed thee here ashore,\nDesolate yet all undaunted, on this desert land enchanted -\nOn this home by horror haunted - tell me truly, I implore -\nIs there - is there balm in Gilead? - tell me - tell me, I implore!\"\n            Quoth the Raven, \"Nevermore.\"\n\n\"Prophet!\" said I, \"thing of evil - prophet still, if bird or devil!\nBy that Heaven that bends above us - by that God we both adore -\nTell this soul with sorrow laden if, within the distant Aidenn,\nIt shall clasp a sainted maiden whom the angels name Lenore -\nClasp a rare and radiant maiden whom the angels name Lenore.\"\n            Quoth the Raven, \"Nevermore.\"\n\n\"Be that word our sign in parting, bird or fiend,\" I shrieked, upstarting -\n\"Get thee back into the tempest and the Night\'s Plutonian shore!\nLeave no black plume as a token of that lie thy soul hath spoken!\nLeave my loneliness unbroken! - quit the bust above my door!\nTake thy beak from out my heart, and take thy form from off my door!\"\n            Quoth the Raven, \"Nevermore.\"\n\nAnd the Raven, never flitting, still is sitting, still is sitting\nOn the pallid bust of Pallas just above my chamber door;\nAnd his eyes have all the seeming of a demon\'s that is dreaming,\nAnd the lamplight o\'er him streaming throws his shadow on the floor;\nAnd my soul from out that shadow that lies floating on the floor\n            Shall be lifted - nevermore!");
+            scene.render();
+        }
+    </script>
+</head>
+<body onload="buildScene()">
+    <p>Test page for th.TextArea</p>
+    
+    <input id="input_first" style="z-index: -100"></input>
+    <input id="input_last" style="z-index: -100"></input><br>
+
+    <canvas id="scene" grid="fill:100px:g(1.0); fill:100px:g(1.0)" width="400" height="400">
+        <simpleeditor id="t1" wrap="true"></simpleeditor>
+    </canvas>
+</body>
+</html>

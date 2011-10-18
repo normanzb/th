@@ -1,0 +1,158 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>Cell Constraints Test</title>
+    <script type="text/javascript" src="../../src/jstraits.js"></script>
+    <script type="text/javascript" src="../../src/util.js"></script>
+    <script type="text/javascript" src="../../src/traits.js"></script>
+    <script type="text/javascript" src="../../src/css.js"></script>
+    <script type="text/javascript" src="../../src/th.js"></script>
+    <script type="text/javascript" src="../../src/components.js"></script>
+
+    <script type="text/javascript" src="../../src/jshashtable.js"></script>
+    <script type="text/javascript" src="../../src/formlayout/formLayout.js"></script>
+    <script type="text/javascript">
+        function doTests() {
+            testRejectNonPositiveOriginAndExtent();
+            testRejectInvalidCellConstraintsAlignments();
+            testValidEncodings();
+
+            fireunit.testDone();
+        }
+
+        function testRejectNonPositiveOriginAndExtent() {
+            assertRejects( 0,  1,  1,  1);
+            assertRejects(-1,  1,  1,  1);
+            assertRejects( 1,  0,  1,  1);
+            assertRejects( 1, -1,  1,  1);
+            assertRejects( 1,  1,  0,  1);
+            assertRejects( 1,  1, -1,  1);
+            assertRejects( 1,  1,  1,  0);
+            assertRejects( 1,  1,  1, -1);
+        }
+
+        function testRejectInvalidCellConstraintsAlignments() {
+            try {
+                new th.formlayout.CellConstraints(1, 1, 1, 1, th.formlayout.CellConstraints.BOTTOM, th.formlayout.CellConstraints.CENTER);
+                fireunit.ok(false, "The CellConstraints constructor should reject invalid orientations.");
+            } catch (e if e instanceof th.formlayout.IllegalArgumentException) {
+                // The expected behavior
+            } catch (e) {
+                fireunit.ok(false, "Wrong exception thrown");
+            }
+
+            try {
+                new th.formlayout.CellConstraints(1, 1, 1, 1, th.formlayout.CellConstraints.CENTER, th.formlayout.CellConstraints.RIGHT);
+                fireunit.ok(false, "The CellConstraints constructor should reject invalid orientations.");
+            } catch (e if e instanceof th.formlayout.IllegalArgumentException) {
+                // The expected behavior
+            } catch (e) {
+                fireunit.ok(false, "Wrong exception thrown");
+            }
+
+//            var cc = new CellConstraints();
+//            try {
+//                cc.xy(1, 1, CellConstraints.BOTTOM, CellConstraints.CENTER);
+//                fail("The CellConstraints setter should reject invalid orientations.");
+//            } catch (IllegalArgumentException e) {
+//                // The expected behavior
+//            } catch (Exception e) {
+//                fail("The setter has thrown an unexpected exception: " + e);
+//            }
+//            try {
+//                cc.xy(1, 1, CellConstraints.BOTTOM, CellConstraints.CENTER);
+//                fail("The CellConstraints setter should reject invalid orientations.");
+//            } catch (IllegalArgumentException e) {
+//                // The expected behavior
+//            } catch (Exception e) {
+//                fail("The setter has thrown an unexpected exception: " + e);
+//            }
+        }
+
+
+        function assertRejects(gridX, gridY, gridWidth, gridHeight) {
+            if (th.isString(gridX)) {
+                var invalidEncoding = gridX;
+                try {
+                    new th.formlayout.CellConstraints(invalidEncoding);
+                    fireunit.ok(false, "The parser should reject the invalid encoding: " + invalidEncoding);
+                } catch (e if e instanceof th.formlayout.IllegalArgumentException) {
+                    // The expected behavior
+                    fireunit.ok(true, "Passed!");
+                } catch (e if e instanceof th.formlayout.IndexOutOfBoundsException) {
+                    // The expected behavior
+                    fireunit.ok(true, "Passed!");
+                } catch (e) {
+                    fireunit.ok(false, "The parser has thrown an unexpected exception:" + e);
+                }
+            } else {
+                try {
+                    new th.formlayout.CellConstraints(gridX, gridY, gridWidth, gridHeight);
+                    fireunit.ok(false, "The CellConstraints constructor should reject non-positive bounds values.");
+                } catch (e if e instanceof th.formlayout.IndexOutOfBoundsException) {
+                    // The expected behavior
+                    fireunit.ok(true, "Passed!");
+                } catch (e) {
+                    fireunit.ok(false, "Wrong exception: " + e);
+                }
+            }
+        }
+
+        function assertEquals(expected, actual) {
+            if (   expected.gridX != actual.gridX
+                || expected.gridY != actual.gridY
+                || expected.gridWidth != actual.gridWidth
+                || expected.gridHeight != actual.gridHeight) {
+                fireunit.ok(false, "Bounds mismatch: expected=" + expected + "; actual=" + actual);
+            }
+            if (   expected.hAlign != actual.hAlign
+                || expected.vAlign != actual.vAlign) {
+                fireunit.ok(false, "Alignment mismatch: expected=" + expected + "; actual=" + actual);
+            }
+            fireunit.ok(true, "Passed!");
+        }
+
+
+        function testValidEncodings() {
+            var cc = new th.formlayout.CellConstraints();
+            assertEquals(cc, new th.formlayout.CellConstraints("1, 1"));
+
+            cc = new th.formlayout.CellConstraints(2, 3);
+            assertEquals(cc, new th.formlayout.CellConstraints("2, 3"));
+
+            cc = new th.formlayout.CellConstraints(3, 4, 2, 5);
+            assertEquals(cc, new th.formlayout.CellConstraints("3, 4, 2, 5"));
+
+            cc = new th.formlayout.CellConstraints(5, 6, 1, 1, th.formlayout.CellConstraints.LEFT, th.formlayout.CellConstraints.BOTTOM);
+            assertEquals(cc, new th.formlayout.CellConstraints("5, 6, l, b"));
+            assertEquals(cc, new th.formlayout.CellConstraints("5, 6, L, B"));
+            assertEquals(cc, new th.formlayout.CellConstraints("5, 6, left, bottom"));
+            assertEquals(cc, new th.formlayout.CellConstraints("5, 6, LEFT, BOTTOM"));
+
+            cc = new th.formlayout.CellConstraints(7, 8, 3, 2, th.formlayout.CellConstraints.FILL, th.formlayout.CellConstraints.DEFAULT);
+            assertEquals(cc, new th.formlayout.CellConstraints("7, 8, 3, 2, f, d"));
+            assertEquals(cc, new th.formlayout.CellConstraints("7, 8, 3, 2, F, D"));
+            assertEquals(cc, new th.formlayout.CellConstraints("7, 8, 3, 2, fill, default"));
+            assertEquals(cc, new th.formlayout.CellConstraints("7, 8, 3, 2, FILL, DEFAULT"));
+        }
+
+        function testRejectInvalidCellConstraintsEncodings() {
+            assertRejects("0, 1, 1, 1");           // Illegal bounds
+            assertRejects("0, 1, 1");              // Illegal number of arguments
+            assertRejects("0, 1, 1, 1, 1");        // Illegal number of arguments
+            assertRejects("1");                    // Syntax error
+            assertRejects("1, 1, fill");           // Syntax error
+            assertRejects("1, 1, 3, 4, f");        // Syntax error
+            assertRejects("1, 1, top, center");    // Illegal column alignment
+            assertRejects("1, 1, fill, left");     // Illegal row alignment
+            assertRejects("1, 1, F\u0131LL, TOP"); // Illegal Turkish char
+            assertRejects("1, 1, 2, 3, t, c");     // Illegal column alignment
+            assertRejects("1, 1, 2, 3, f, l");     // Illegal row alignment
+        }
+    </script>
+</head>
+<body onload="doTests()">
+
+</body>
+</html>

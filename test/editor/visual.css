@@ -1,0 +1,10 @@
+#root {
+    border:1px solid black;
+    padding: 10px;
+}
+
+#t1 {
+    color: black;
+    font: 9pt Monaco bold, monospace;
+    background-color: blue;
+}

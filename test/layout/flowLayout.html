@@ -1,0 +1,68 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>th.Input Test</title>
+    <link type="text/css" rel="thstylesheet" href="flowLayout.css"/>
+    <script type="text/javascript" src="../../src/jstraits.js"></script>
+    <script type="text/javascript" src="../../src/util.js"></script>
+    <script type="text/javascript" src="../../src/traits.js"></script>
+    <script type="text/javascript" src="../../src/css.js"></script>
+    <script type="text/javascript" src="../../src/th.js"></script>
+    <script type="text/javascript" src="../../src/components.js"></script>
+    <script type="text/javascript" src="../../src/jshashtable.js"></script>
+    <script type="text/javascript" src="../../src/formlayout/formLayout.js"></script>
+    <script type="text/javascript" src="../../src/editor.js"></script>
+     <script type="text/javascript">
+            var scene;
+            var p;
+            function buildScene() {
+                scene = new th.Scene(document.getElementById("scene"), "../../src/");
+                             
+                focusManager = new th.FocusManager(th.global_event_bus, th.byId('input_first'), th.byId('input_last'));
+                scene.focusManager = focusManager;
+                focusManager.relateTo(scene);
+                
+                input = scene.byId('input');
+                input.selectAll();
+                input.key.bind("", input.key.ENTER, inputEnter, this);
+                
+                list = scene.byId('list');
+                list.items = [ 'Type something above and hit enter!', 'The input will get stored within this list then ;)', ' ']
+                
+                focusManager.subscribe(list);
+                focusManager.subscribe(input);
+                focusManager.focus(input);
+                
+                scene.render();
+            }
+            
+            function inputEnter() {
+                if (input.text == '') {
+                    alert('Type in a text first!');
+                    focusManager.focus(input);
+                    return;
+                }
+                list.items.push(input.text);
+                list.render();
+                input.setText("");
+            }
+        </script>
+    </head>
+    <body onload="buildScene()">
+        <p>This page demonstrates a simple input field based on th.</p>
+        <p>Type in some text and hit enter to add it to the list!</p>
+                
+        <input id="input_first"></input>
+        <input id="input_last"></input><br>
+
+        <canvas id="scene" flowLayout="vertical" width="400" height="400">
+            <label text="Input:"></label>
+            <label text="List:"></label>
+            
+            <input id="input" text="Hello World!"></input>
+            <list id="list" layoutData="1.0"></list>
+        </canvas>
+    </body>
+    </html>
+</html>

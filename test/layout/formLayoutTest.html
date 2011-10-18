@@ -1,0 +1,111 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>Visual Test of FormLayout</title>
+    <link type="text/css" rel="thstylesheet" href="visual.css"/>
+    <script type="text/javascript" src="../../src/jstraits.js"></script>
+    <script type="text/javascript" src="../../src/util.js"></script>
+    <script type="text/javascript" src="../../src/traits.js"></script>
+    <script type="text/javascript" src="../../src/css.js"></script>
+    <script type="text/javascript" src="../../src/th.js"></script>
+    <script type="text/javascript" src="../../src/components.js"></script>
+    <script type="text/javascript" src="../../src/jshashtable.js"></script>
+    <script type="text/javascript" src="../../src/formlayout/formLayout.js"></script>
+    <script type="text/javascript" src="./formLayoutTest.js"></script>
+    <script type="text/javascript">
+        function doTests() {
+            testBasic();
+            testHorizontalAlignments();
+            testVerticalAlignments();
+            testBoundedWidth();
+            testBoundedHeight();
+            testNoExtraExpansionIfAllColumnsAreFixed();
+            testNoExtraExpansionIfSpannedColumnsAreFixed();
+            testExtraExpansionIfSpannedColumnsGrow();
+            testExtraExpansionHonorsCurrentMeasure();
+            testDefaultSize();
+            testDefaultWithLowerBound();
+            testDefaultWithUpperBound();
+            testVisibility();
+            fireunit.testDone();
+        }
+    </script>
+</head>
+<body onload="doTests()">
+    <canvas id="testBasic" width="500" height="500"></canvas>
+    <canvas id="testHorizontalAlignments" width="500" height="500">
+        <TestComponent id="left"    sizes="2,7,4,9" layoutdata="1,1"></testcomponent>
+        <TestComponent id="center"  sizes="2,7,4,9" layoutdata="2,1"></testcomponent>
+        <TestComponent id="right"   sizes="2,7,4,9" layoutdata="3,1"></testcomponent>
+        <TestComponent id="fill"    sizes="2,7,4,9" layoutdata="4,1"></testcomponent>
+        <TestComponent id="def"     sizes="2,7,4,9" layoutdata="5,1"></testcomponent>
+    </canvas>
+    <canvas id="testVerticalAlignments" width="500" height="500">
+        <TestComponent id="top"     sizes="7,2,9,4" layoutdata="1,1"></testcomponent>
+        <TestComponent id="center"  sizes="7,2,9,4" layoutdata="1,2"></testcomponent>
+        <TestComponent id="bottom"  sizes="7,2,9,4" layoutdata="1,3"></testcomponent>
+        <TestComponent id="fill"    sizes="7,2,9,4" layoutdata="1,4"></testcomponent>
+        <TestComponent id="def"     sizes="7,2,9,4" layoutdata="1,5"></testcomponent>
+    </canvas>
+    <canvas id="testBoundedWidth" width="500" height="500">
+        <TestComponent id="c1"      sizes="2,7,4,9"     layoutdata="1,1"></testcomponent>
+        <TestComponent id="c2"      sizes="20,7,40,9"   layoutdata="2,1"></testcomponent>
+        <TestComponent id="c3"      sizes="2,7,4,9"     layoutdata="3,1"></testcomponent>
+        <TestComponent id="c4"      sizes="20,7,40,9"   layoutdata="4,1"></testcomponent>
+        <TestComponent id="c5"      sizes="2,7,4,9"     layoutdata="5,1"></testcomponent>
+        <TestComponent id="c6"      sizes="20,7,40,9"   layoutdata="6,1"></testcomponent>
+        <TestComponent id="c7"      sizes="2,7,4,9"     layoutdata="7,1"></testcomponent>
+        <TestComponent id="c8"      sizes="20,7,40,9"   layoutdata="8,1"></testcomponent>
+    </canvas>
+    <canvas id="testBoundedHeight" width="500" height="500">
+        <TestComponent id="c1"      sizes="7,2,9,4"     layoutdata="1,1"></testcomponent>
+        <TestComponent id="c2"      sizes="7,20,9,40"   layoutdata="1,2"></testcomponent>
+        <TestComponent id="c3"      sizes="7,2,9,4"     layoutdata="1,3"></testcomponent>
+        <TestComponent id="c4"      sizes="7,20,9,40"   layoutdata="1,4"></testcomponent>
+        <TestComponent id="c5"      sizes="7,2,9,4"     layoutdata="1,5"></testcomponent>
+        <TestComponent id="c6"      sizes="7,20,9,40"   layoutdata="1,6"></testcomponent>
+        <TestComponent id="c7"      sizes="7,2,9,4"     layoutdata="1,7"></testcomponent>
+        <TestComponent id="c8"      sizes="7,20,9,40"   layoutdata="1,8"></testcomponent>
+    </canvas>
+    <canvas id="testNoExtraExpansionIfAllColumnsAreFixed" width="500" height="500">
+        <TestComponent id="c1"      sizes="10,1,50,1"     layoutdata="1,1"></testcomponent>
+        <TestComponent id="c2"      sizes="10,1,50,1"     layoutdata="2,1"></testcomponent>
+        <TestComponent id="c3"      sizes="10,1,50,1"     layoutdata="3,1"></testcomponent>
+        <TestComponent id="c4"      sizes="10,1,50,1"     layoutdata="1,2,2,1"></testcomponent>
+    </canvas>
+    <canvas id="testNoExtraExpansionIfSpannedColumnsAreFixed" width="500" height="500">
+        <TestComponent id="c1"      sizes="10,1,50,1"     layoutdata="1,1"></testcomponent>
+        <TestComponent id="c2"      sizes="10,1,50,1"     layoutdata="2,1"></testcomponent>
+        <TestComponent id="c3"      sizes="10,1,50,1"     layoutdata="3,1"></testcomponent>
+        <TestComponent id="c4"      sizes="10,1,50,1"     layoutdata="1,2,2,1"></testcomponent>
+    </canvas>
+    <canvas id="testExtraExpansionIfSpannedColumnsGrow" width="500" height="500">
+        <TestComponent id="c1"      sizes="10,1,50,1"     layoutdata="1,1"></testcomponent>
+        <TestComponent id="c2"      sizes="10,1,50,1"     layoutdata="2,1"></testcomponent>
+        <TestComponent id="c3"      sizes="10,1,50,1"     layoutdata="3,1"></testcomponent>
+        <TestComponent id="c4"      sizes="10,1,50,1"     layoutdata="1,2,2,1"></testcomponent>
+    </canvas>
+    <canvas id="testExtraExpansionHonorsCurrentMeasure" width="500" height="500">
+        <TestComponent id="c1"      sizes="10,1,50,1"     layoutdata="1,1"></testcomponent>
+        <TestComponent id="c2"      sizes="10,1,50,1"     layoutdata="2,1"></testcomponent>
+        <TestComponent id="c3"      sizes="10,1,50,1"     layoutdata="3,1"></testcomponent>
+        <TestComponent id="c4"      sizes="10,1,50,1"     layoutdata="1,2,2,1"></testcomponent>
+    </canvas>
+    <canvas id="testDefaultSize" width="500" height="500">
+        <TestComponent id="c1"      sizes="10,10,50,50"     layoutdata="1,1"></testcomponent>
+    </canvas>
+    <canvas id="testDefaultWithLowerBound" width="500" height="500">
+        <TestComponent id="c1"      sizes="10,10,50,50"     layoutdata="1,1"></testcomponent>
+    </canvas>
+    <canvas id="testDefaultWithUpperBound" width="500" height="500">
+        <TestComponent id="c1"      sizes="10,10,50,50"     layoutdata="1,1"></testcomponent>
+    </canvas>
+    <canvas id="testVisibility" width="500" height="500">
+        <TestComponent id="visible"                     sizes="10,10,10,10"     layoutdata="1,1"></testcomponent>
+        <TestComponent id="invisible"                   sizes="10,10,10,10"     layoutdata="2,2"></testcomponent>
+        <TestComponent id="invisibleHonorsVisibility"   sizes="10,10,10,10"     layoutdata="3,3"></testcomponent>
+        <TestComponent id="invisibleIgnoresVisibility"  sizes="10,10,10,10"     layoutdata="4,4"></testcomponent>
+    </canvas>
+</body>
+</html>

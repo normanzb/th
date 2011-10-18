@@ -1,0 +1,113 @@
+<!doctype html>
+<html>
+<head>
+    <title>Playground for Thunderhead</title>
+    <link type="text/css" rel="stylesheet" href="bespin.css">
+
+    <script type="text/javascript" src="../../src/jstraits.js"></script>
+    <script type="text/javascript" src="../../src/util.js"></script>
+    <script type="text/javascript" src="../../src/traits.js"></script>
+    <script type="text/javascript" src="../../src/css.js"></script>
+    <script type="text/javascript" src="../../src/th.js"></script>
+    <script type="text/javascript" src="../../src/components.js"></script>
+    <script type="text/javascript" src="../../src/jshashtable.js"></script>
+    <script type="text/javascript" src="../../src/formlayout/formLayout.js"></script>
+    <script type="text/javascript">
+        var $ = function(el) {
+            return document.getElementById(el);
+        }
+
+        var runIt;
+        var lastSelection;
+
+        window.onload = function() {
+            runIt = function() {
+                $('render').innerHTML = $('html').value;
+                th.global_resources = new th.Resources();
+                eval($('js').value);
+            }
+            $('html').onblur = $('js').onblur = $('css').onblur = $('doit').onclick = runIt;
+            show('borders');
+        }
+        
+        function show(key) {
+            if (lastSelection) {
+                lastSelection.style.color = 'white';
+            }
+            
+            $(key).style.color = 'black';
+            lastSelection = $(key);
+
+            $("js").value = sampledata[key].js;
+            $("html").value = sampledata[key].html;
+            $("css").value = sampledata[key].css;
+            runIt();
+        }
+        
+        var sampledata = {
+            basic: {
+                js: "var scene = new th.Scene($('scene'), {\n  baseUrl: '../../src/',\n  stringStyles: $('css').value \n});\nscene.render();",
+                html: '<canvas id="scene" width="500" height="500"></canvas>',
+                css: 'Panel { background-color: blue; }'
+            },
+            borders: {
+                js: "var scene = new th.Scene($('scene'), {\n  baseUrl: '../../src/',\n  stringStyles: $('css').value \n});\nscene.render();",
+                html: '<canvas id="scene" width="500" height="500" grid="fill:100px:g(1.0), spacer(5px), fill:100px:g(0.5); fill:100px:g(1.0), spacer(5px), fill:100px:g(1.0)">\n  <panel id="p1"></panel>\n  <panel id="p2"></panel>\n  <panel id="p3"></panel>\n  <panel id="p4"></panel>\n</canvas>',
+                css: '#p1 { background-color: blue;border-top-width: 10px;border-bottom-width: 10px;border-left-width: 10px;border-right-width: 10px;border-top-color: black;border-bottom-color: black;border-left-color: black;border-right-color: black;border-top-style: double;border-bottom-style: double;border-left-style: double;border-right-style: double;} #p2 {background-color: red;border-top-width: 10px;border-bottom-width: 10px;border-left-width: 10px;border-right-width: 10px;border-top-color: black;border-bottom-color: black;border-left-color: black;border-right-color: black;border-top-style: ridge;border-bottom-style: ridge;border-left-style: ridge;border-right-style: ridge;} #p3 {background-color: purple;border-top-width: 10px; border-bottom-width: 10px;border-left-width: 10px;border-right-width: 10px;border-top-color: black;border-bottom-color: black;border-left-color: black;border-right-color: black;border-top-style: groove;border-bottom-style: groove;border-left-style: groove;border-right-style: groove;} #p4 {background-color: yellow;border-top-width: 10px; border-bottom-width: 10px; border-left-width: 10px;border-right-width: 10px;border-top-color: black;border-bottom-color: black;border-left-color: black;border-right-color: black;border-top-style: inset;border-bottom-style: inset;border-left-style:inset;border-right-style: inset;}'
+            },
+            background: {
+                js: "var scene = new th.Scene(document.getElementById('scene1'), '../../src/');\nscene.root.add(new th.Panel({ id: 'panel1' }));\nscene.render();\n\nvar scene = new th.Scene(document.getElementById('scene2'), '../../src/');\nscene.root.add(new th.Panel({ id: 'panel2' }));\nscene.render();\n\nvar scene = new th.Scene(document.getElementById('scene3'), '../../src/');\nscene.root.add(new th.Panel({ id: 'panel3' }));\nscene.render();\n\nvar scene = new th.Scene(document.getElementById('scene4'), '../../src/');\nscene.root.add(new th.Panel({ id: 'panel4' }));\nscene.render();\n\nvar scene = new th.Scene(document.getElementById('scene5'), '../../src/');\nscene.root.add(new th.Panel({ id: 'panel5' }));\nscene.render();\n\nvar scene = new th.Scene(document.getElementById('scene6'), '../../src/');\nscene.root.add(new th.Panel({ id: 'panel6' }));\nscene.render();\n\nvar scene = new th.Scene(document.getElementById('scene7'), '../../src/');\nscene.root.add(new th.Panel({ id: 'panel7' }));\nscene.render();\n\nvar scene = new th.Scene(document.getElementById('scene8'), '../../src/');\nscene.root.add(new th.Panel({ id: 'panel8' }));\nscene.render();",
+                html: "<canvas id='scene1' width='50' height='50'></canvas>\n<canvas id='scene2' width='50' height='50'></canvas>\n<canvas id='scene3' width='50' height='50'></canvas>\n<canvas id='scene4' width='50' height='50'></canvas>\n<canvas id='scene5' width='50' height='50'></canvas>\n<canvas id='scene6' width='50' height='50'></canvas>\n<canvas id='scene7' width='50' height='50'></canvas>\n<canvas id='scene8' width='50' height='50'></canvas>",
+                css: "#panel1 { background-color: blue; }\n#panel2 { background-color: red; background-image: url(images/disk.png); background-repeat: no-repeat;}\n#panel3 {    background-color: green;    background-image: url(images/disk.png);    background-position: 50% 50%;    background-repeat: no-repeat;}\n#panel4 {    background-color: pink;    background-image: url(images/disk.png);    background-position: 100% 100%;    background-repeat: no-repeat;}\n#panel5 {    background-color: beige;    background-image: url(images/disk.png);    background-position: 25% 75%;    background-repeat: no-repeat;}\n#panel6 {    background-color: yellow;    background-image: url(images/disk.png);}\n#panel7 {    background-image: -webkit-gradient(linear, left top, bottom right, from(blue), to(red));}\n#panel8 {    background-image: -webkit-gradient(linear, left top, right top, from(blue), to(yellow), color-stop(0.25, red), color-stop(0.5, green), color-stop(0.75, pink));}"
+            },
+            layout: {
+                js: "var scene = new th.Scene($('scene'), {\n baseUrl: '../../src/',\n stringStyles: $('css').value \n});\nscene.render();",
+                html: "<canvas id='scene' grid='f:100px:g(1.0), spacer(2.5em), f:100px:g(0.5); f:100px:g(1.0), spacer(5em), f:100px:g(1.0)' width='500' height='500'>\n    <panel id='p1' cell='3,3'></panel> <panel id='p2' cell='1,1'></panel>\n    <panel id='p3' cell='1,3'></panel> <panel id='p4' cell='3,1'></panel></canvas>",
+                css: "#p1 { background-color: blue; }\n#p2 { background-color: red;}\n#p3 { background-color: purple; }\n#p4 { background-color: yellow; }"
+            }            
+        };
+    </script>
+</head>
+<body>
+    <div id="header">
+        <a href="index.html" title="Thunderhead Playground"><img src="images/logo.png" border="0"><img src="images/thicon.png" border="0" width="26"></a>
+    </div>
+    <div id="subheader">
+        <ul>
+            <li><a id ='basic' href="javascript:void(0);" onclick="show('basic')">basic</a></li>
+            <li><a id ='borders' href="javascript:void(0);" onclick="show('borders')">borders</a></li>
+            <li><a id ='background' href="javascript:void(0);" onclick="show('background')">background</a></li>
+            <li><a id ='layout' href="javascript:void(0);" onclick="show('layout')">layout</a></li>
+        </ul>
+    </div>
+  	<div id="content">
+  	    <table>
+  	    <tr>
+  	        <td id="codearea" valign="top">
+                <h4>code to run</h4>
+                <textarea id="js" rows="14" cols="60"></textarea>
+
+                <br><br><h4>markup</h4>
+                <textarea id="html" rows="10" cols="60"></textarea>
+                <br><br><h4>style</h4>
+                <textarea id="css" rows="10" cols="60"></textarea>
+  	        </td>
+  	        <td><a href="javascript:void(0);" id="doit">&#9654;</a></td>
+  	        <td id="result" valign="top">
+                <h4>result</h4>
+                <div id="render"></div>
+  	        </td>
+  	    </tr>    
+  	    </table>
+  	</div>
+    <div id="footer">
+        <table cellpadding="0">
+            <tr>
+                <td id="prompt"><img id="promptimg" src="images/icn_command.png" alt=">" ></td>
+                <td id="commandline"><input id="command" spellcheck="false"></td>
+                <td id="message" align="right" nowrap><a href="https://wiki.mozilla.org/Labs/Bespin/Tips" target="_blank" title="Ctrl-J jumps you between the command line and the editor">Hint: Click on the samples above</a></td>
+            </tr>
+        </table>
+    </div>
+</body>
+</html>

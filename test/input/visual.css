@@ -1,0 +1,25 @@
+Input {
+    font: 9pt Tahoma;
+    color: black;
+    border: 3px solid gray;
+    padding: 2px 3px;
+    selection-color: #B5D2F3;
+}
+
+List {
+    border: 3px solid gray;
+    background-color: white;
+}
+
+List Label {
+    border-bottom: 1px solid gray;
+}
+
+List:active, Input:active {
+    border: 3px solid black;
+}
+
+Label {
+    font: 9pt Tahoma;
+    color: black;
+}

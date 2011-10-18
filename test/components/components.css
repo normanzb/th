@@ -1,0 +1,17 @@
+#foo {
+    background-color: red;
+}
+
+#textButton {
+    font: 8pt Tahoma;
+    color: white;
+    padding: 0px 0px 0px 2px;
+    background-color: #848179;
+    
+    border-image: url(../../src/images/basic_button.png) 4 4 4 4 stretch stretch;
+    border-width: 4px;
+}
+
+#textButton:active {
+    color: #7676FF;
+}

@@ -1,0 +1,50 @@
+List {
+    border: 3px solid gray;
+}
+
+List:active {
+    border: 3px solid black;
+}
+
+List Label {
+    font: 9pt Tahoma;
+    color: black;
+}
+
+List Label:active {
+    border-top: 1px solid rgb(180, 114, 30);
+    border-bottom: 1px solid rgb(162, 97, 19);
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#AF6814), to(#DE8419));
+}
+
+#p1 {
+    background-color: white;
+}
+
+#p2 {
+    background-color: red;
+}
+
+#p3 {
+    background-color: purple;
+}
+
+#p4 {
+    background-color: yellow;
+}
+
+#window {
+    -th-window-label-x: 20;
+    -th-window-label-y: 25;
+    background-image: url(window_middle.png);
+    border-image: url(window_border.png) 48 22 25 22 stretch stretch;
+    border-width: 48px 22px 25px 22px;
+    padding: 5px;
+}
+
+#window WindowLabel {
+    font: 9pt Tahoma;
+    color: white;
+    top: 27px;
+    left: 25px;
+}

@@ -1,0 +1,69 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>th.Window Tests</title>
+    <link type="text/css" rel="thstylesheet" href="visual.css"/>
+    <script type="text/javascript" src="../../src/jstraits.js"></script>
+    <script type="text/javascript" src="../../src/util.js"></script>
+    <script type="text/javascript" src="../../src/traits.js"></script>
+    <script type="text/javascript" src="../../src/css.js"></script>
+    <script type="text/javascript" src="../../src/th.js"></script>
+    <script type="text/javascript" src="../../src/components.js"></script>
+    <script type="text/javascript" src="../../src/jshashtable.js"></script>
+    <script type="text/javascript" src="../../src/formlayout/formLayout.js"></script>
+    <script type="text/javascript" src="../../src/editor.js"></script>
+     <script type="text/javascript">
+            var scene;
+            var p;
+            function buildScene() {
+                scene = new th.WindowScene( {
+                    canvasOrId: document.getElementById("window"), 
+                    baseUrlOrParams: "../../src/",
+                    isVisible: true,
+                    isDraggable: true,
+                    title: "I am a Window - so drag me around!"
+                });
+                
+                list1 = scene.byId('p1');
+                list2 = scene.byId('p2');
+                list3 = scene.byId('p3');
+                list4 = scene.byId('p4');
+                
+                focusManager = new th.FocusManager(th.global_event_bus, th.byId('input_first'), th.byId('input_last'));
+                focusManager.relateTo(scene);
+                
+                focusManager.subscribe(list1);
+                // replace the th.Label of List 1 with a th.HtmlLabel!
+                list1.remove(list1.renderer);
+                list1.renderer = new th.HtmlLabel();
+                list1.add(list1.renderer);
+                list1.renderer.addCss('padding', '2px 5px');
+                
+                var htmlString = '<u><i>This</i> is <#FA3C3C>a Test</#FA3C3C> of <b>HtmlLabel!</b></u>: wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww';
+                list1.items = [{ text: htmlString}, {text: 'Item2'}, { text: 'item3'}, { text: 'item4'}];
+                
+                var longText = 'Very looooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong Text';
+                th.forEach([ list2, list3, list4], function(e) { focusManager.subscribe(e); e.items = [{text: longText}, { text: 'Item2'}, { text: 'Item3'}, { text: 'Item4' }]; })
+
+                scene.focusManager = focusManager;
+                scene.center();
+                scene.render();
+            }
+        </script>
+    </head>
+    <body onload="buildScene()">
+        <p>This page demonstrates a draggable window within th.</p>
+        <p>Click <a href="javascript: scene.toggle();">here</a> to toggle the window</p>
+        
+        <input id="input_first" style="z-index: -100"></input>
+        <input id="input_last" style="z-index: -100"></input><br>
+
+        <canvas id="window" grid="f:100px:g(1.0), spacer(2.5em), f:100px:g(0.5); f:100px:g(1.0), spacer(5em), f:100px:g(1.0)" width="800" height="400">
+            <list id="p1" cell="1,1"></list>    <list id="p2" cell="3,1"></list>
+
+            <list id="p3" cell="1,3"></list>     <list id="p4" cell="3,3"></list>
+        </canvas>
+    </body>
+    </html>
+</html>

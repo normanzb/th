@@ -1,0 +1,83 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>Basic Thunderhead Test</title>
+    <link type="text/css" rel="thstylesheet" href="background.css"/>
+    <script type="text/javascript" src="../../src/jstraits.js"></script>
+    <script type="text/javascript" src="../../src/util.js"></script>
+    <script type="text/javascript" src="../../src/traits.js"></script>
+    <script type="text/javascript" src="../../src/css.js"></script>
+    <script type="text/javascript" src="../../src/th.js"></script>
+    <script type="text/javascript" src="../../src/components.js"></script>
+    <script type="text/javascript">
+        function buildScene() {
+            var scene = new th.Scene(document.getElementById("scene"), "../../src/");
+            scene.root.add(new th.Panel({ id: "panel1" }));
+            scene.render();
+
+            scene = new th.Scene(document.getElementById("scene2"), "../../src/");
+            scene.root.add(new th.Panel({ id: "panel2" }));
+            scene.render();
+
+            scene = new th.Scene(document.getElementById("scene3"), "../../src/");
+            scene.root.add(new th.Panel({ id: "panel3" }));
+            scene.render();
+
+            scene = new th.Scene(document.getElementById("scene4"), "../../src/");
+            scene.root.add(new th.Panel({ id: "panel4" }));
+            scene.render();
+
+            scene = new th.Scene(document.getElementById("scene5"), "../../src/");
+            scene.root.add(new th.Panel({ id: "panel5" }));
+            scene.render();
+
+            scene = new th.Scene(document.getElementById("scene6"), "../../src/");
+            scene.root.add(new th.Panel({ id: "panel6" }));
+            scene.render();
+
+            scene = new th.Scene(document.getElementById("scene7"), "../../src/");
+            scene.root.add(new th.Panel({ id: "panel7" }));
+            scene.render();
+
+            scene = new th.Scene(document.getElementById("scene8"), "../../src/");
+            scene.root.add(new th.Panel({ id: "panel8" }));
+            scene.render();
+        }
+    </script>
+</head>
+<body onload="buildScene()">
+    <p>
+        This test should display a 50 x 50 pixel blue rectangle (this tests id selectors)
+    </p>
+    <canvas id="scene" width="50" height="50"></canvas>
+    <p>
+        This test should display a 50 x 50 pixel red rectangle with an image in the upper-left
+    </p>
+    <canvas id="scene2" width="50" height="50"></canvas>
+    <p>
+        This test should display a 50 x 50 pixel green rectangle with an image in the center
+    </p>
+    <canvas id="scene3" width="50" height="50"></canvas>
+    <p>
+        This test should display a 50 x 50 pixel pink rectangle with an image in the lower-right
+    </p>
+    <canvas id="scene4" width="50" height="50"></canvas>
+    <p>
+        This test should display a 200 x 200 pixel beige rectangle with an image 25% across the width and 75% down the height
+    </p>
+    <canvas id="scene5" width="200" height="200"></canvas>
+    <p>
+        This test should display a 200 x 200 pixel yellow rectangle with an image in the upper-left tiled in both dimensions
+    </p>
+    <canvas id="scene6" width="200" height="200"></canvas>
+    <p>
+        This test should display a 50 x 50 pixel rectangle with a gradient from blue to red from upper-left to lower-right
+    </p>
+    <canvas id="scene7" width="50" height="50"></canvas>
+    <p>
+        This test should display a 200 x 200 pixel rectangle with a gradient from blue to red to green to pink to yellow with stops at quarter increments going left to right
+    </p>
+    <canvas id="scene8" width="200" height="200"></canvas>
+</body>
+</html>

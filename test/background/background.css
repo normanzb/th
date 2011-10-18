@@ -1,0 +1,43 @@
+#panel1 {
+    background-color: blue;
+}
+
+#panel2 {
+    background-color: red;
+    background-image: url(disk.png);
+    background-repeat: no-repeat;
+}
+
+#panel3 {
+    background-color: green;
+    background-image: url(disk.png);
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+}
+
+#panel4 {
+    background-color: pink;
+    background-image: url(disk.png);
+    background-position: 100% 100%;
+    background-repeat: no-repeat;
+}
+
+#panel5 {
+    background-color: beige;
+    background-image: url(disk.png);
+    background-position: 25% 75%;
+    background-repeat: no-repeat;
+}
+
+#panel6 {
+    background-color: yellow;
+    background-image: url(disk.png);
+}
+
+#panel7 {
+    background-image: -webkit-gradient(linear, left top, bottom right, from(blue), to(red));
+}
+
+#panel8 {
+    background-image: -webkit-gradient(linear, left top, right top, from(blue), to(yellow), color-stop(0.25, red), color-stop(0.5, green), color-stop(0.75, pink));
+}                                                                                                                                   

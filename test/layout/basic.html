@@ -1,0 +1,84 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+  <title>Basic Test of FormLayout</title>
+    <link type="text/css" rel="thstylesheet" href="basic.css"/>
+    <script type="text/javascript" src="../../src/jstraits.js"></script>
+    <script type="text/javascript" src="../../src/util.js"></script>
+    <script type="text/javascript" src="../../src/traits.js"></script>
+    <script type="text/javascript" src="../../src/css.js"></script>
+    <script type="text/javascript" src="../../src/th.js"></script>
+    <script type="text/javascript" src="../../src/components.js"></script>
+    <script type="text/javascript" src="../../src/jshashtable.js"></script>
+    <script type="text/javascript" src="../../src/formlayout/formLayout.js"></script>
+    <script type="text/javascript">
+        function doTests() {
+            // simple synchronous tests
+            testLayout();
+            testUnit();
+
+            // first async test; it should pass off to the next one
+            testEmSupport();
+        }
+
+        // tests for support of em; for now, just make sure an exception isn't thrown by formlayout
+        function testEmSupport() {
+            var scene = new th.Scene(document.getElementById("scene"), "../../src/");
+            scene.render(testEmSupportCallback);
+        }
+
+        function testEmSupportCallback(scene) {
+            // just want to make sure no exceptions were thrown, so we can move on to the next one
+            testSpacerSupport();
+        }
+
+        // tests for support of spacer property
+        function testSpacerSupport() {
+            var scene = new th.Scene(document.getElementById("scene"), "../../src/");
+            scene.render(testSpacerSupportCallback);
+        }
+
+        function testSpacerSupportCallback(scene) {
+            var layout = scene.root.layoutManager;
+            var constraints = layout.constraintMap.get(scene.root.children[0]);
+            fireunit.compare(1, constraints.gridX, "Component 1 grid x");
+            fireunit.compare(1, constraints.gridY, "Component 1 grid y");
+            constraints = layout.constraintMap.get(scene.root.children[1]);
+            fireunit.compare(3, constraints.gridX, "Component 2 grid x");
+            fireunit.compare(1, constraints.gridY, "Component 2 grid y");
+
+            fireunit.testDone();
+        }
+
+        function testUnit() {
+            var unit = new th.formlayout.Unit("test", "te", "t", true);
+            fireunit.compare("test", unit.toString(), "toString()");
+            fireunit.compare("t", unit.encode(), "encode() with both abbreviation types");
+            delete unit.parseAbbreviation;
+            fireunit.compare("te", unit.encode(), "encode() without a parseAbbreviation");
+        }
+
+        function testLayout() {
+            var colSpec = new th.formlayout.ColumnSpec(th.formlayout.ColumnSpec.LEFT, 5, 1.0);
+            var rowSpec = new th.formlayout.RowSpec(th.formlayout.RowSpec.CENTER, 5, 1.0);
+            var layout = new th.formlayout.FormLayout(
+                    [ colSpec ],
+                    [ rowSpec ]
+
+            );
+
+            fireunit.compare(1, layout.getColumnCount(), "Column count");
+            fireunit.compare(colSpec, layout.getColumnSpec(1), "Column spec");
+            fireunit.compare(1, layout.getRowCount(), "Row count");
+            fireunit.compare(rowSpec, layout.getRowSpec(1), "Row spec");
+        }
+    </script>
+</head>
+<body onload="doTests()">
+    <canvas id="scene" grid="fill:5em, spacer(5em), fill:5em; fill:5em:grow" width="500" height="500">
+        <panel id="panel1"></panel>
+        <panel id="panel2"></panel>
+    </canvas>
+</body>
+</html>

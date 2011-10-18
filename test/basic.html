@@ -1,0 +1,31 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>Basic Thunderhead Test</title>
+    <link type="text/css" rel="thstylesheet" href="basic.css"/>
+    <script type="text/javascript" src="../src/jstraits.js"></script>
+    <script type="text/javascript" src="../src/util.js"></script>
+    <script type="text/javascript" src="../src/traits.js"></script>
+    <script type="text/javascript" src="../src/css.js"></script>
+    <script type="text/javascript" src="../src/th.js"></script>
+    <script type="text/javascript" src="../src/components.js"></script>
+    <script type="text/javascript">
+        function buildScene() {
+            var scene = new th.Scene(document.getElementById("scene"),
+                {
+                    baseUrl: "../src/",
+                    stringStyles: "#scene { background-color: red }"
+                }
+            );
+            scene.render();
+        }
+    </script>
+</head>
+<body onload="buildScene()">
+    <p>
+        This basic test should display a 500 x 500 pixel red rectangle
+    </p>
+    <canvas id="scene" width="500" height="500"></canvas>    
+</body>
+</html>

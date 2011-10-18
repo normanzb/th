@@ -1,0 +1,156 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>Various Component Tests</title>
+    <link type="text/css" rel="thstylesheet" href="components.css"/>
+    <script type="text/javascript" src="../../src/jstraits.js"></script>
+    <script type="text/javascript" src="../../src/util.js"></script>
+    <script type="text/javascript" src="../../src/traits.js"></script>
+    <script type="text/javascript" src="../../src/css.js"></script>
+    <script type="text/javascript" src="../../src/th.js"></script>
+    <script type="text/javascript" src="../../src/components.js"></script>
+    <script type="text/javascript" src="../../src/jshashtable.js"></script>
+    <script type="text/javascript" src="../../src/formlayout/formLayout.js"></script>
+    <script type="text/javascript" src="../../src/editor.js"></script>
+    <script type="text/javascript">
+        var scene;
+
+        function buildScene() {
+            var i = 0;
+            while (++i > 0) {
+                var canvas = document.getElementById("scene" + ((i == 1) ? "" : i));
+                if (!canvas) break;
+                
+                scene = new th.Scene(canvas, "../../src/");
+
+                // scene specific crap
+
+                if (i == 5) {               // the list in a scrollpane
+                    var list = scene.byId("list");
+                    list.items = [ "hello", "world", "how", "are", "you", "doing",
+                                   "thisisaverylongstringtotestscrollingyes!",
+                                   "yet", "more", "items", "here",
+                                   "yet", "more", "items", "here",
+                                   "yet", "more", "items", "here"
+                                 ];
+                    
+                    // we customize the topPanel of the scrollbar a little bit ;)
+                    var topPanel = scene.byId("scrollpane").topPanel;           // get the topPanel
+                    topPanel.layoutManager = new th.FlowLayout(th.VERTICAL);    // apply a layout manager
+                    topPanel.addCss("height", "52px");                          // you have to set the height of a panel that uses FlowLayout at the moment (it seems to me you have to do it, otherwise you ran into errors: TODO: WORK WITHOUT THAT!!!)
+                    topPanel.addCss("border-bottom", "1px solid black")         // add a bottom-line to seperate the topPanel from the scrollPanel itself
+                    
+                    // create some components that we want to add to the topPanel
+                    var label = new th.Label({text: 'Test'});                   // a simple label
+                    var button = new th.TextButton({id:"textButton", text:"click me"}); // a simple button
+                    button.addCss("margin", "5px")                              // the button should have a little bit of margin around it
+                    topPanel.add([label, button]);                              // add the components to the topPanel and you are done :)
+                } else if (i == 6) {        // the horizontal tree
+                    var tree = scene.byId("tree");
+                    tree.setData(
+                            [ "1", { text: "2",
+                                     contents: [ "11", { text: "22",
+                                                         contents: [ "111", { text: "222",
+                                                                              contents: [ "1111", { text: "2222",
+                                                                                                    contents: [ "11111", "22222", "33333" ] },
+                                                                                          "3333", "4444" ] },
+                                                                     "333", "444" ] },
+                                                 "How", "Are", "You" ] },
+                              "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13" ]
+                    );
+                }
+
+                scene.render();
+            }
+        }
+    </script>
+</head>
+<body onload="buildScene()">
+    <h3>Gallery for various components</h3>
+
+    <h4>th.Panel</h4>
+
+    <p>
+        Not much to showcase; functions primarily as
+        a container for other components (if you want a transparent container,
+        just use <b>th.Container</b>). It's also the simplest component that
+        paints a background. Because the default panel is transparent, this one is
+        styled a garish red.
+    </p>
+
+    <canvas id="scene" width="500" height="50">
+        <panel id="foo"></panel>
+    </canvas>
+
+    <h4>th.Button</h4>
+
+    <p>
+        Very under-implemented at present; can't even paint button text.
+        Here's the default look for a button:
+    </p>
+
+    <canvas id="scene2" width="100" height="50">
+        <button></button>
+    </canvas>
+    
+    <h4>th.TextButton</h4>
+
+    <p>
+        This button can display Text :P
+    </p>
+
+    <canvas id="scene7" width="500" height="22" flowLayout="horizontal">
+        <textbutton id="textButton" text="click me" onClick="alert('I was clicked!')"></textbutton>
+        <textbutton id="textButton" text="click me too" onClick="alert('I was clicked too!')"></textbutton>
+    </canvas>
+
+    <p>
+        The lack of change in painting during a click showcases the
+        incomplete implementation of CSS "pseudo-classes". The hardest
+        part of the pseudo-class infrastructure is in place, just need
+        to finish up the wiring. 
+    </p>
+
+    <p>
+        The CSS "background" property can be used to style the button, but it
+        also has custom "-th-top-image", "-th-middle-image", and "-th-bottom-image"
+        properties (the middle image is stretched to fill any space not filled by the
+        top and bottom images).
+    </p>
+
+    <h4>th.Scrollbar</h4>
+
+    <p>
+        Yer basic scrollbar. In theory does horizontal and vertical, have only tested
+        and gotten images for vertical so far. No generic skin has been crafted for it,
+        so the Bespin dashboard scrollbar is the generic one.
+    </p>
+
+    <canvas id="scene3" width="14" height="150">
+        <verticalscrollbar></verticalscrollbar>
+    </canvas>
+
+    <p>
+        And, a horizontal variant:
+    </p>
+
+    <canvas id="scene4" width="150" height="14">
+        <horizontalscrollbar></horizontalscrollbar>
+    </canvas>
+
+    <h4>th.ScrollPane containing a th.List</h4>
+
+    <canvas id="scene5" width="150" height="150">
+        <scrollpane splitter="true" id="scrollpane">
+            <list id="list"></list>
+        </scrollpane>
+    </canvas>
+
+    <h4>th.HorizontalTree</h4>
+
+    <canvas id="scene6" width="500" height="150">
+        <horizontaltree id="tree"></horizontaltree>
+    </canvas>
+</body>
+</html>

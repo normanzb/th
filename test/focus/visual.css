@@ -1,0 +1,50 @@
+List {
+    border: 3px solid gray;
+}
+
+List:active {
+    border: 3px solid black;
+}
+
+#p1 {
+    background-color: blue;
+}
+
+#p2 {
+    background-color: red;
+}
+
+#p3 {
+    background-color: purple;
+}
+
+#p4 {
+    background-color: yellow;
+}
+
+#p5 {
+    background-color: blue;
+}
+
+#p6 {
+    background-color: red;
+}
+
+#p7 {
+    background-color: purple;
+}
+
+#p8 {
+    background-color: yellow;
+}
+
+List Label {
+    font: 9pt Tahoma;
+    color: black;
+}
+
+List Label:active {
+    border-top: 1px solid rgb(180, 114, 30);
+    border-bottom: 1px solid rgb(162, 97, 19);
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#AF6814), to(#DE8419));
+}

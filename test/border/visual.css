@@ -1,0 +1,72 @@
+#scene {
+    border:1px solid black;
+    padding: 10px;
+    font: 9pt Monaco bold, monospace;
+}
+
+#p1 {
+    background-color: blue;
+    border: 10px inset black;
+    padding: 10px;
+}
+
+#p2 {
+    background-color: red;
+    border: 10px ridge blue;
+}
+
+#p3 {
+    background-color: purple;
+    border: 10px inset purple;
+}
+
+#p4 {
+    background-color: yellow;
+    border: 10px groove yellow;
+}
+
+#p5 {
+    background-color: green;
+    border: 10px outset green;
+}
+
+#p6 {
+    background-color: white;
+    border: 10px solid red;
+}
+
+#p7 {
+    background-color: white;
+    border: 10px ridge black;
+}
+
+#p8 {
+    background-color: brown;
+    border: 10px inset brown;
+}
+
+#p9 {
+    background-color: blue;
+    border: 10px double red;
+}
+
+#p10 {
+    border-image: url(border.png) 27 27 27 27 repeat repeat;
+    border-width: 5px;
+    border-bottom-width: 15px;
+    border-top-width: 20px;
+}
+
+#p11 {
+    border-image: url(border.png) 27 27 27 27 stretch repeat;
+    border-width: 5px;
+    border-bottom-width: 15px;
+    border-top-width: 20px;
+}
+
+#p12 {
+    border-image: url(border.png) 27 27 27 27 stretch stretch;
+    border-width: 5px;
+    border-bottom-width: 15px;
+    border-top-width: 20px;
+}

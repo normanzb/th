@@ -1,0 +1,36 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>Layout and Tags</title>
+    <link type="text/css" rel="thstylesheet" href="layout-tags.css"/>
+    <script type="text/javascript" src="../src/jstraits.js"></script>
+    <script type="text/javascript" src="../src/util.js"></script>
+    <script type="text/javascript" src="../src/traits.js"></script>
+    <script type="text/javascript" src="../src/css.js"></script>
+    <script type="text/javascript" src="../src/th.js"></script>
+    <script type="text/javascript" src="../src/components.js"></script>
+    <script type="text/javascript">
+        function buildScene() {
+            var scene = new th.Scene(document.getElementById("scene"), "../src/");
+            scene.render();
+        }
+    </script>
+</head>
+<body onload="buildScene()">
+    <p>
+        This test should display five panels stacked side-to-side; the first three are the same size
+        and are red, blue, and green; the next two are the same size and half as wide as the first three;
+        their colors are pink and crimson.
+    </p>
+    <canvas id="scene" width="500" height="500">
+        <panel id="panel1"></panel> 
+        <panel id="panel2"></panel>
+        <panel id="panel3"></panel>
+        <panel>
+            <panel id="panel4"></panel>
+            <panel id="panel5"></panel>
+        </panel>
+    </canvas>
+</body>
+</html>

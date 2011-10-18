@@ -1,0 +1,29 @@
+#root {
+    -th-grid-layout-cols: default, spacer(5px), default;
+    -th-grid-layout-rows: default, spacer(5px), default;
+}
+
+#panel1 {
+    background-color: red;
+}
+
+#panel2 {
+    background-color: blue;
+}
+
+#panel3 {
+    background-color: green;
+}
+
+#panel6 {
+    -th-grid-layout-cols: default;
+    -th-grid-layout-rows: default;
+}
+
+#panel4 {
+    background-color: pink;
+}
+
+#panel5 {
+    background-color: crimson;
+}

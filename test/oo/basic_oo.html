@@ -1,0 +1,45 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>Fireunit: Basic OO Tests</title>
+    <script type="text/javascript" src="../../src/jstraits.js"></script>
+    <script type="text/javascript">
+        var Foo = Class.define({
+            members: {
+                init: function(text) {
+                    this.text = text;
+                },
+
+                instanceTest: function() {
+                    return this.text;
+                },
+
+                staticTest: function() {
+                    return 500;
+                }
+            }
+        });
+
+        Foo.staticTest = function() {
+            if (!Foo.staticVariable) Foo.staticVariable = 0;
+            return ++Foo.staticVariable;
+        };
+
+        var foo = new Foo("bar");
+        var foo2 = new Foo("car");
+
+        console.log(foo.instanceTest());
+        fireunit.compare("bar", foo.instanceTest(), "Verifying instance method");
+        fireunit.compare("car", foo2.instanceTest(), "Verifying instance method");
+        fireunit.compare(1, Foo.staticTest(), "Verifying static method behavior");
+        fireunit.compare(2, Foo.staticTest(), "Verifying static method behavior");
+        fireunit.compare(500, foo.staticTest(), "Verifying static method behavior");
+
+        fireunit.testDone();
+    </script>
+</head>
+<body>
+    Check the "Test" panel in Firebug
+</body>
+</html>

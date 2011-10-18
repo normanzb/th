@@ -1,0 +1,48 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>Visual Test of FormLayout</title>
+    <link type="text/css" rel="thstylesheet" href="visual.css"/>
+    <script type="text/javascript" src="../../src/jstraits.js"></script>
+    <script type="text/javascript" src="../../src/util.js"></script>
+    <script type="text/javascript" src="../../src/traits.js"></script>
+    <script type="text/javascript" src="../../src/css.js"></script>
+    <script type="text/javascript" src="../../src/th.js"></script>
+    <script type="text/javascript" src="../../src/components.js"></script>
+    <script type="text/javascript" src="../../src/jshashtable.js"></script>
+    <script type="text/javascript" src="../../src/formlayout/formLayout.js"></script>
+    <script type="text/javascript">
+        var scene;
+        var p;
+        function buildScene() {
+            scene = new th.Scene(document.getElementById("scene"), "../../src/");
+            scene.render();
+            p = function () {
+                console.profile();
+                scene.render();
+                console.profileEnd();
+            };
+        }
+    </script>
+</head>
+<body onload="buildScene()">
+    <p>This page demonstrates the CSS border renderer.</p>
+    <p>Each label is decorated with the border it describes. The root node itself has a slim border with padding</p>
+
+    <canvas id="scene" grid="fill:100px:g(1.0), spacer(5px), fill:100px:g(1.0), spacer(5px), fill:100px:g(1.0); fill:100px:g(1.0), spacer(5px), fill:100px:g(1.0), spacer(5px), fill:100px:g(1.0), spacer(5px), fill:100px:g(1.0)" width="800" height="600">
+        <label id="p1" text="black double border + padding"></label>
+        <label id="p2" text="blue ridge"></label>
+        <label id="p3" text="purple inset"></label>
+        <label id="p4" text="yellow groove"></label>
+        <label id="p5" text="green outset"></label>
+        <label id="p6" text="solid red"></label>
+        <label id="p7" text="black ridge"></label>
+        <label id="p8" text="brown inset"></label>
+        <label id="p9" text="double red"></label>
+        <label id="p10" text="image used for border; repeat both"></label>
+        <label id="p11" text="same as left; stretch top-/bottom-border"></label>
+        <label id="p12" text="same as left; stretch left-/right-border"></label>
+    </canvas>
+</body>
+</html>

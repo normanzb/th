@@ -1,0 +1,202 @@
+body {
+    padding: 0;
+    margin: 0;
+    overflow-y: hidden;
+	background-color: #2A211C;
+	font-family: Calibri, Arial, sans-serif;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+}
+
+img {
+    border: none;
+}
+
+*:focus { outline: 0; }
+
+h4 {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    color: #ec971f;
+}
+
+textarea {
+    background-color: #44423b;
+    color: #ddd;
+    border: 1px solid black;
+    -moz-border-radius: 8px 0 8px 0;
+    -webkit-border-radius: 8px 0 8px 0;
+    padding: 8px;
+}
+
+
+#subheader {
+    height: 38px;
+    position: absolute;
+    top: 32px;
+    left: 0;
+    right: 0;
+    background-image: url("images/toolbar_sub_bg.png");
+}
+
+#subheader ul {
+    color: white;
+    list-style: none;
+    border: 0;
+    margin: 6px 0 0 0;
+    padding: 0;
+}
+
+#subheader ul li {
+    float: left;
+    color: white;
+    padding: 0 8px;
+    border-right: solid #999 1px;
+}
+
+#subheader ul li a {
+    color: white;
+    text-decoration: none;
+}
+
+#subheader ul li a:hover {
+    border-bottom: 1px solid #999;
+}
+
+#subheader img {
+    margin-top: 6px;
+    margin-right: 8px;
+}
+
+#content {
+    position: absolute;
+    margin: 0;
+    padding: 0;
+    top: 63px;
+    bottom: 33px;
+    right: 0px;
+    left: 0px;
+    z-index: -1;
+    cursor: text !important;
+}
+
+#footer {
+    height: 28px;
+    background-image: url("images/footer_bg.png");
+    background-repeat: repeat-x;
+    padding: 5px;
+    position: absolute;
+    bottom: -1px;
+    right: 0;
+    left: 0;
+}
+
+#header {
+    height: 32px;
+    background-image: url("images/toolbar_main_bg.gif");
+}
+
+#logo {
+    margin-right: 30px;
+}
+
+#commandline {
+    width: 100%;
+}
+
+#command {
+    border: 0;
+    background: none;
+    color: #DDDDDD;
+    font-size: 12pt;
+    font-family: Calibri, Arial, sans-serif;
+    width: 100%;
+}
+
+#prompt {
+    width: 11px;
+}
+
+#promptimg {
+    margin-top: 6px;
+    padding-right: 4px;
+}
+
+#message {
+    font-size: 14px;
+    font-family: Calibri, Arial, sans-serif;
+    color: #777777;
+}
+
+#message a {
+    color: #777777;
+    text-decoration: none;
+}
+
+#codearea {
+    padding: 1em;
+}
+
+#result {
+    padding: 1em;
+    width: 60%;
+}
+
+#doit {
+    text-decoration: none;
+    color: #ec971f;
+    font-size: large;
+}
+
+/*
+ * Contains the Styles Scrollbars
+ */
+
+/* Turn on a 16x16 scrollbar */
+::-webkit-scrollbar {
+    width: 16px;
+    height: 16px;
+}
+
+/* Turn on single button up on top, and down on bottom */
+::-webkit-scrollbar-button:start:decrement,
+::-webkit-scrollbar-button:end:increment {
+    display: block;
+}
+
+/* Turn off the down area up on top, and up area on bottom */
+::-webkit-scrollbar-button:vertical:start:increment,
+::-webkit-scrollbar-button:vertical:end:decrement {
+    display: none;
+}
+
+/* Place The scroll down button at the bottom */
+::-webkit-scrollbar-button:end:increment {
+    background-image: url("images/scroll_cntrl_dwn.png");
+}
+
+/* Place The scroll up button at the up */
+::-webkit-scrollbar-button:start:decrement {
+    background-image: url("images/scroll_cntrl_up.png");
+}
+
+/* Top area above thumb and below up button */
+::-webkit-scrollbar-track-piece:vertical:start {
+    background-image: url("images/scroll_gutter_top.png"), url("images/scroll_gutter_mid.png");
+    background-repeat: no-repeat, repeat-y;
+}
+
+/* Bottom area below thumb and down button */
+::-webkit-scrollbar-track-piece:vertical:end {
+    background-image: url("images/scroll_gutter_btm.png"), url("images/scroll_gutter_mid.png");
+    background-repeat: no-repeat, repeat-y;
+    background-position: bottom left, 0 0;
+}
+
+/* The thumb itself */
+::-webkit-scrollbar-thumb:vertical {
+    height: 56px;
+    -webkit-border-image: url("images/scroll_thumb.png") 8 0 8 0 stretch stretch;
+    border-width: 8 0 8 0;
+}

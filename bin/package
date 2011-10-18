@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+# ----------------------------------------------------------------------------
+# package - put the Th code together for deployment
+#
+# To use the script you need to first install:
+#
+# - sprockets (first you need a ruby, then you need to: 
+#              gem install --remote sprockets)
+#
+# - java (to be able to run the yui compressor
+# ----------------------------------------------------------------------------
+
+# work out the correct directory
+abspath=`dirname $(cd "${0%/*}" 2>/dev/null; echo "$PWD"/"${0##*/}")`
+deploydir=$abspath/../deploy
+srcdir=$abspath/../src
+libdir=$abspath/../lib
+
+# if the deploy directory doesn't exist, create it
+if [ ! -d $deploydir ]; then
+  mkdir $deploydir
+fi
+
+# create a default CSS string
+$abspath/defaultcss
+
+# package up
+sprocketize $srcdir/*.js $srcdir/formlayout/*.js > $deploydir/th.all.js
+
+# compress
+java -jar $libdir/yuicompressor-2.4.2.jar -o $deploydir/th.compressed.js $deploydir/th.all.js
